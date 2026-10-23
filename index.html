@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Tasks - Pastel To-Do</title>
+  <meta name="description" content="A minimalist pastel To-Do app with smooth animations, dark mode, and local storage." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Ambient floating blobs -->
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="blob blob--1"></div>
+    <div class="blob blob--2"></div>
+    <div class="blob blob--3"></div>
+  </div>
+
+  <!-- Confetti canvas overlay -->
+  <canvas id="confetti" class="confetti-canvas" aria-hidden="true"></canvas>
+
+  <main class="app">
+    <header class="app__header">
+      <div class="app__topbar">
+        <p class="app__greeting" id="greeting"></p>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle color theme" aria-pressed="false">
+          <span id="theme-icon" aria-hidden="true">🌙</span>
+        </button>
+      </div>
+
+      <h1 class="app__title">My Tasks</h1>
+      <p class="app__subtitle" id="task-count" aria-live="polite">0 of 0 completed</p>
+
+      <!-- Progress bar -->
+      <div class="progress-wrap" id="progress" role="progressbar" aria-label="Task completion progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+
+      <!-- Filters -->
+      <nav class="filters" id="filters" aria-label="Task filters" style="--i: 0;">
+        <span class="filters__pill" aria-hidden="true"></span>
+        <button type="button" class="filters__btn is-active" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" class="filters__btn" data-filter="active" aria-pressed="false">Active</button>
+        <button type="button" class="filters__btn" data-filter="done" aria-pressed="false">Done</button>
+      </nav>
+    </header>
+
+    <form class="task-form" id="task-form" autocomplete="off">
+      <label for="task-input" class="visually-hidden">New task</label>
+      <div class="task-form__input-wrap">
+        <input
+          type="text"
+          id="task-input"
+          class="task-form__input"
+          placeholder="Add a new task... (press / to focus)"
+          maxlength="120"
+        />
+        <kbd class="task-form__kbd" aria-hidden="true">/</kbd>
+      </div>
+      <button type="submit" class="btn btn--primary" id="add-btn">Add</button>
+    </form>
+
+    <section class="task-section" aria-label="Task list">
+      <ul class="task-list" id="task-list"></ul>
+      <div class="empty-state" id="empty-state">
+        <p class="empty-state__text" id="empty-text">Nothing here yet. Add your first task above ✨</p>
+      </div>
+    </section>
+
+    <footer class="app__footer">
+      <span class="items-left" id="items-left"></span>
+      <button type="button" class="btn btn--ghost" id="clear-completed">Clear completed</button>
+    </footer>
+  </main>
+
+  <!-- Undo Toast -->
+  <aside class="toast" id="toast" role="status" aria-live="polite">
+    <span class="toast__text" id="toast-text"></span>
+    <button type="button" class="toast__undo" id="toast-undo">Undo</button>
+  </aside>
+
+  <script src="app.js"></script>
+</body>
+</html>
